@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 
-const MovieList = () => {
+function MovieList() {
 
-    const [movies, setMovies] = useState([])
-    
+    const [filmes, setfilmes] = useState([]);
+
     useEffect(async () => {
-        const url = "http://localhost:5000/movies";
+        const url = "http://localhost:5000/filmes";
         const res = await fetch(url);
-        setMovies(await res.json());
-    }, [])
-    
-    return(
-            <table className="striped">
-                <thead>
+        setfilmes(await res.json());
+    }, []);
+
+    return (
+        <table className="striped">
+            <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Tipo</th>
@@ -20,26 +20,26 @@ const MovieList = () => {
                     <th>Episódio atual</th>
                     <th>Visto por último</th>
                 </tr>
-                </thead>
+            </thead>
 
-                <tbody>
-                {movies.map(movie => {
-                    let type = movie.type === 0 ? 'Série' : 'Filme';
-                    let formatDate = (movie.last_view).split('T', 1)
+            <tbody>
+                {filmes.map(filmes => {
+                    let tipo = filmes.tipo === 1 ? 'Série' : 'Filme';
+                    let formatDate = (filmes.ult_vis).split('T', 1);
 
-                    return(
-                        <tr key={movie.id}>
-                            <td>{movie.name}</td>
-                            <td>{type}</td>
-                            <td>{movie.total_ep}</td>
-                            <td>{movie.atual_ep}</td>
+                    return (
+                        <tr key={filmes.id}>
+                            <td>{filmes.titulo}</td>
+                            <td>{tipo}</td>
+                            <td>{filmes.total_ep}</td>
+                            <td>{filmes.atual_ep}</td>
                             <td>{formatDate}</td>
                         </tr>
-                    )
+                    );
                 })}
-                </tbody>
-            </table>
-    )
+            </tbody>
+        </table>
+    );
 }
 
 export default MovieList;
