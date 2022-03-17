@@ -6,12 +6,12 @@ module.exports = server => {
         response.json({message: 'Bem vindo ao catálogo de séries e filmes'})
     })
 
-    server.get('/movies', (require, response) => {
-        const sql = '';
+    server.get('/filmes', (require, response) => {
+        const sql = 'SELECT * FROM filmes';
         connection.query(sql, (error, res) => {
             if (error){
                 return error;
-            } console.log("movies: ", res);
+            } console.log("filmes: ", res);
             response.json(res)
         })
     })
